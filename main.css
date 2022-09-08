@@ -92,3 +92,7 @@ label + img {
     width: 22px;
     cursor: pointer;
 }
+
+.opacity {
+    opacity: 0.4
+}
