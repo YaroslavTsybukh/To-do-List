@@ -31,7 +31,7 @@
             document.querySelectorAll(".todo__list")[index].classList.remove("opacity")
         }
         localStorage.setItem("tasks" , JSON.stringify(tasks))
-        // fillHtmlList()
+        fillHtmlList()
     }
 
     const filterTasks = () => {
@@ -52,20 +52,22 @@
 
     fillHtmlList()
 
+    const addTask = () => {
+        if(inputMessage.value !== "") {
+            warningBlock.textContent = ""
+            tasks.push(new CreateTask(inputMessage.value))
+            inputMessage.value = ""
+            localStorage.setItem("tasks", JSON.stringify(tasks))
+            fillHtmlList()
+        }else{
+            warningBlock.textContent = "У вас не заполненное поле"
+            warningBlock.style.color = "#ffd86f"
+            warningBlock.style.textAlign = "center"
+        }
+    }
+
     addButton.addEventListener("click" , () => {
-
-            if(inputMessage.value !== "") {
-                warningBlock.textContent = ""
-                tasks.push(new CreateTask(inputMessage.value))
-                inputMessage.value = ""
-                localStorage.setItem("tasks", JSON.stringify(tasks))
-                fillHtmlList()
-            }else{
-                warningBlock.textContent = "У вас не заполненное поле"
-                warningBlock.style.color = "#ffd86f"
-                warningBlock.style.textAlign = "center"
-            }
-
+        addTask()
     })
 
     const deletePoint = (index) => {
@@ -73,4 +75,10 @@
         localStorage.setItem("tasks" , JSON.stringify(tasks))
         fillHtmlList()
     }
+
+    document.addEventListener("keydown" , (e) => {
+        if(e.key === "Enter") {
+            addTask()
+        }
+    })
 
